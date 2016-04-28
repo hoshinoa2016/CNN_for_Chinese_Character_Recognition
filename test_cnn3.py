@@ -91,7 +91,7 @@ with tf.Session(config=config) as sess:
  train_data = tf.convert_to_tensor(train_data, dtype=tf.float32).eval(session=sess)
  train_labels = labels_to_one_hot(train_labels)
  for i in range(10000):
-  rand_rows = np.random.randint(50000,size=50)
+  rand_rows = np.random.randint(len(train_data),size=50)
   batch_x = train_data[rand_rows,:]
   batch_y = train_labels[rand_rows,:]
   if i%100 == 0:
@@ -100,8 +100,8 @@ with tf.Session(config=config) as sess:
     print("step %d, training accuracy %g"%(i, train_accuracy))
   train_step.run(feed_dict={x: batch_x, y_: batch_y, keep_prob: 0.5})
 
-x_test = test_data
-y_test = labels_to_one_hot(test_labels)
-print("test accuracy %g"%accuracy.eval(feed_dict={
-    x: x_test, y_: y_test, keep_prob: 1.0}))
+ x_test = test_data
+ y_test = labels_to_one_hot(test_labels)
+ print("test accuracy %g"%accuracy.eval(feed_dict={
+    x: x_test, y_: y_test, keep_prob: 1.0},session=sess))
 
