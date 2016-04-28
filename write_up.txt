@@ -1,0 +1,31 @@
+● What is the intuition behind CNNs? Can you explain at a high level how they work?
+CNN uses a small filer (say, 4x4 fileter for a 28x28 image) to obtain a window of image area that is compressed and treated as one cell.
+The window is slided to obtain multiple versions of the compressed image. You can have multiple such layers (convolution layers) and connect the layers with activation funcitons (ReLU is ofen used).
+Thus the network will be robust against distortion and of positional difference of the image.
+
+● How did you decide the structure/hyperparameters of your CNN? e.g. number of layers, arrangement of layers, size of filters
+I used the same settings as the tensorflow Tutorial example.
+
+● What was the hardest part? The easiest part?
+The hardest part was to read the files with a tensorflow method, which often freezed. I thought of using method of other package (such as Open CV).
+But, I continued with tensorflow methods, because I needed to learn the way tensorflow programming works. Finally, I could read the images with a tensorflow method with errors.
+When sampling a batch from the data, again tensorflow freezed. I felt I had enough experience with tensorflow methods, so I used numpy methods.
+
+The easiest part is defining the network and training/tensing. Even though I used the tutorial example this time, defining the network looks very simple and intuitive.
+And, the technique like gradient decent is already implemented and provided to use easily.
+
+● What did you enjoy?
+- Running the latest technology on my laptop.
+- Working with tensorflow. The way the program is executed is different from other other programming language (i.e. Tensor is not filled with values until it's run/evaluated).
+  The order of execution seemed (and still seems) mysterious to me. So, I practiced with simple examples like incrementing a variable in Basic Usage.
+
+● Can you think of ways to improve your solution?
+I wanted to try with different number of layers, if I had had more time. It seems that more layers may improve the accuracy (according to blogs I've read).
+
+● Do you have ideas about business applications of this technology, or perhaps more interesting problems?
+- Anomaly detection on credit card signature
+- Dictionary lookup without the need of knowing Pin-yin (provided for turists in China or learners of Chinese langauge)
+- Distinguishing different person's handwriting may be used as person identification
+- Plagiarithm detection for elementary-highschool students to find who may be copying the assignments of others
+
+
