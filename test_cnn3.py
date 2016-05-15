@@ -4,12 +4,12 @@ import numpy as np
 """Runs CNN for Chinese Characters."""
 """Dimension should be 784 and Num of classes should be 100"""
 
-train_data = np.loadtxt("../dump_train_data.txt")
-train_label_file = open("../dump_train_labels.txt")
+train_data = np.loadtxt("../dump_images/dump_train_data.txt")
+train_label_file = open("../dump_images/dump_train_labels.txt")
 train_labels = train_label_file.readlines(); train_label_file.close()
 
-test_data = np.loadtxt("../dump_test_data.txt")
-test_label_file = open("../dump_test_labels.txt")
+test_data = np.loadtxt("../dump_images/dump_test_data.txt")
+test_label_file = open("../dump_images/dump_test_labels.txt")
 test_labels = test_label_file.readlines(); test_label_file.close()
 
 def labels_to_one_hot(labels_dense):
@@ -21,6 +21,11 @@ def labels_to_one_hot(labels_dense):
  labels_one_hot = np.zeros((num_instances,num_labels))
  for i in range(num_instances):
   labels_one_hot[i,index.index(labels_dense[i])] = 1
+ #write index (index -> label) to a file
+ index_file = open("../data/index.txt","w")
+ for i in range(len(index)):
+  index_file.write("%d:%s"%(i,index[i]))
+ index_file.close()
  return labels_one_hot
 
 x = tf.placeholder(tf.float32, shape=[None, 784])
@@ -99,6 +104,10 @@ with tf.Session(config=config) as sess:
         x: batch_x, y_: batch_y, keep_prob: 1.0})
     print("step %d, training accuracy %g"%(i, train_accuracy))
   train_step.run(feed_dict={x: batch_x, y_: batch_y, keep_prob: 0.5})
+
+ saver = tf.train.Saver()
+ save_path = saver.save(sess, "../tmp/model.ckpt")
+ print("Model saved in file: %s" % save_path)
 
  x_test = test_data
  y_test = labels_to_one_hot(test_labels)
